@@ -1,0 +1,60 @@
+\documentclass[
+	12pt,twoside,a4paper
+]{report}
+
+\usepackage{graphicx}
+\usepackage[margin=1in]{geometry}
+\usepackage{fancyhdr}
+\usepackage[utf8]{inputenc}
+\usepackage{etoc}
+\usepackage{xcolor, soul}
+\usepackage{listings}
+\usepackage{amsmath}
+\usepackage{lipsum}
+\usepackage{pgfplots}
+\usepackage{hyperref}
+\usepackage{circuitikz}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{listings}
+\usepackage{unicode-math}
+\usepackage[style=apa, backend=biber]{biblatex}
+
+\addbibresource{refs.bib}
+\DeclareLanguageMapping{english}{english-apa}
+
+\sethlcolor{yellow}
+
+\fancypagestyle{plain}{
+	\fancyhf{}
+	\fancyhead[l]{Project 2}
+	\fancyhead[r]{June 10, 2024}
+	\fancyfoot[le, ro]{Page \thepage}
+	\fancyfoot[re, lo]{ESD Capsule 2024}
+	\setlength{\headheight}{15pt}
+	\renewcommand{\headrulewidth}{0.2pt}
+	\renewcommand{\footrulewidth}{0.2pt}
+}	
+
+\thispagestyle{plain}
+
+\renewcommand{\etocaftertitlehook}{\thispagestyle{plain}}
+\renewcommand{\etocaftertochook}{\thispagestyle{plain}}
+
+\begin{document}
+	\include{title}
+	\tableofcontents
+
+	\include{chapters/01-abstract.tex}
+	\include{chapters/02-introduction.tex}
+	\include{chapters/03-theoretical-background.tex}
+	\include{chapters/04-experimental-setup.tex}
+	\include{chapters/05-simulation-in-spice.tex}
+	\include{chapters/06-results.tex}
+	\include{chapters/07-conclusion.tex}
+	\include{chapters/08-appendices.tex}
+
+	\newpage
+	\thispagestyle{plain}
+	\printbibliography{}
+\end{document}

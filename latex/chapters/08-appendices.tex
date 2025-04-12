@@ -1,0 +1,94 @@
+\chapter{Appendices}
+
+\section{Data Sheets}
+
+\subsection{Frequency Analysis Data Sheet}
+
+\begin{figure}[h]
+    \centering
+    \begin{circuitikz} \draw
+        (0,0) to[square voltage source, l=0-5V] (0,4)
+        to[R, l=$10\Omega$] (4,4) 
+        to[L, l=0.76mH] (4,2) 
+        to[L, l=0.76mH] (4,0) -- (0,0)
+        ;
+        \end{circuitikz}
+    \caption{Helmholtz Coil Circuit Diagram}
+\end{figure}
+
+\subsection{Measurement System Data Sheet}
+
+\begin{figure}[h]
+    \centering
+    \begin{circuitikz}
+        \draw (0,0) to[sinusoidal voltage source, l=$4.16V_{pp}$] (0,4)
+        to[R, l=$466\Omega$] (4,4)
+        to[L, l=$L_{x}$] (4,0)
+        to[short] (0,0);
+    \end{circuitikz}
+    \caption{Measurement System Circuit Diagram}
+\end{figure}
+
+\newpage{}
+\thispagestyle{plain}
+
+
+\subsection{Prototype Board Data Sheet}
+
+\begin{figure}[h]
+    \centering
+    \begin{circuitikz}
+        \tikzstyle{every node}=[font=\normalsize]
+        \draw (7.5,8.5) to[R,l={ \normalsize 100$\Omega$}] (7.5,12.25);
+        \draw (8.5,12.25) to[R,l={ \normalsize 460$\Omega$}] (8.5,8.5);
+        \draw (7.5,8.5) to[short] (8.5,8.5);
+        \draw (8,7) to[short] (8,8.5);
+        \draw (6.25,12.5) to[short] (9.5,12.5);
+        \draw (9.5,12.5) to[short] (9.5,14);
+        \draw (9.5,14) to[short] (6.25,14);
+        \draw (6.25,14) to[short] (6.25,12.5);
+        \draw (7.5,12.25) to[short] (7.5,12.5);
+        \draw (8.5,12.25) to[short] (8.5,12.5);
+        \node at (7.5,12.5) [circ] {};
+        \node at (8.5,12.5) [circ] {};
+        \node [font=\small] at (7.75,13.25) {ON-ON SWITCH};
+        \draw (13,8.5) to[L,l={ \normalsize 1mH} ] (13,12.5);
+        \draw (14.25,12.5) to[L,l={ \normalsize 1.53mH} ] (14.25,8.5);
+        \draw (13,8.5) to[short] (14.25,8.5);
+        \node at (8,14) [circ] {};
+        \draw (13,12.5) to[short] (14.25,12.5);
+        \draw (8,14) to[short] (8,14.25);
+        \draw (8,14.25) to[short] (13.75,14.25);
+        \draw (13.75,14.25) to[short] (13.75,12.5);
+        \draw (12.25,8.5) to[short] (15,8.5);
+        \node [font=\small] at (13.5,7.75) {ON-ON SWITCH};
+        \draw (12.25,8.5) to[short] (12,8.5);
+        \draw (12,8.5) to[short] (12,7);
+        \draw (12,7) to[short] (15,7);
+        \draw (15,7) to[short] (15,8.5);
+        \node at (13,8.5) [circ] {};
+        \node at (14.25,8.5) [circ] {};
+        \node at (13.5,7) [circ] {};
+        \draw (9.5,6.25) to[sinusoidal voltage source, sources/symbol/rotate=auto] (11.75,6.25);
+        \draw (9.5,6.25) to[short] (8,6.25);
+        \draw (8,6.25) to[short] (8,7);
+        \draw (11.75,6.25) to[short] (13.5,6.25);
+        \draw (13.5,6.25) to[short] (13.5,7);
+    \end{circuitikz}
+    \caption{Prototype Board Data Sheet}
+\end{figure}
+
+\section{LTspice Netlist}
+
+\begin{lstlisting}
+* Helmholtz Coil Simulation
+V1 N001 0 PULSE(0 5 0 {t_edge} {t_edge} {1/2/freq-t_edge} {1/freq})
+R1 VL1 N001 10
+L1 VL1 P001 0.76m
+L2 P001 0 0.76m
+.tran 0 10m 0 1u
+.param t_edge=1u freq=666
+.ic V(VL1)=0
+.backanno
+.end
+\end{lstlisting}
